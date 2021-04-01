@@ -61,7 +61,23 @@ carousel.on('mousedown', function () {
     shiftSlide(0)
   })
 })
-
+carousel.on('swipe', function () {
+  if (carousel.hasClass('transition')) return
+  dragStart = event.pageX
+  $(this).on('mousemove', function () {
+    dragEnd = event.pageX
+    $(this).css('transform', 'translateX(' + dragPos() + 'px)')
+  })
+  $(document).on('mouseup', function () {
+    if (dragPos() > threshold) {
+      return shiftSlide(1)
+    }
+    if (dragPos() < -threshold) {
+      return shiftSlide(-1)
+    }
+    shiftSlide(0)
+  })
+})
 function dragPos() {
   return dragEnd - dragStart
 }
