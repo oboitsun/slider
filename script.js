@@ -1,3 +1,31 @@
+var touchstartX = 0
+var touchendX = 0
+
+document.getElementById('carousel').addEventListener(
+  'touchstart',
+  function (event) {
+    touchstartX = event.changedTouches[0].screenX
+  },
+  false
+)
+
+document.getElementById('carousel').addEventListener(
+  'touchend',
+  function (event) {
+    touchendX = event.changedTouches[0].screenX
+    handleSwipe()
+  },
+  false
+)
+
+function handleSwipe() {
+  if (touchendX < touchstartX) {
+    shiftSlide(-1)
+  }
+  if (touchendX > touchstartX) {
+    shiftSlide(1)
+  }
+}
 var isBreakPoint = function (bp) {
   var bps = [0, 600, 1600],
     w = $(window).width(),
@@ -61,23 +89,7 @@ carousel.on('mousedown', function () {
     shiftSlide(0)
   })
 })
-carousel.on('swipe', function () {
-  if (carousel.hasClass('transition')) return
-  dragStart = event.pageX
-  $(this).on('mousemove', function () {
-    dragEnd = event.pageX
-    $(this).css('transform', 'translateX(' + dragPos() + 'px)')
-  })
-  $(document).on('mouseup', function () {
-    if (dragPos() > threshold) {
-      return shiftSlide(1)
-    }
-    if (dragPos() < -threshold) {
-      return shiftSlide(-1)
-    }
-    shiftSlide(0)
-  })
-})
+
 function dragPos() {
   return dragEnd - dragStart
 }
@@ -85,7 +97,7 @@ function dragPos() {
 function shiftSlide(direction) {
   if (carousel.hasClass('transition')) return
   dragEnd = dragStart
-  $(document).off('mouseup')
+  $(document).off('swipe')
   carousel
     .off('mousemove')
     .addClass('transition')
