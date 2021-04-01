@@ -1,0 +1,109 @@
+$carousel-width: 100%;
+$body-background: rgba(243, 243, 243, 1);
+body {
+  background: $body-background;
+}
+
+.wrap {
+  position: relative;
+  width: $carousel-width;
+  height: 800px;
+  margin: 0 auto;
+}
+
+.window {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  max-width: 1600px;
+}
+
+#carousel {
+  width: auto;
+  position: relative;
+  display: flex;
+  top: 0;
+  left: 0;
+}
+
+.slide {
+  min-width: 425px;
+  cursor: pointer;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 0;
+}
+
+#prev,
+#next {
+  z-index: 10;
+  position: absolute;
+  height: 100%;
+  width: 10%;
+
+  cursor: pointer;
+}
+#prev {
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(243, 243, 243, 1) 0%,
+    rgba(243, 243, 243, 0.8) 50%,
+    rgba(9, 9, 121, 0) 100%
+  );
+}
+#next {
+  right: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(9, 9, 121, 0) 0%,
+    rgba(243, 243, 243, 0.8) 50%,
+    rgba(243, 243, 243, 1) 100%
+  );
+}
+.circle {
+  position: absolute;
+  top: calc(50% - 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  line-height: 24px;
+  color: lawngreen;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0px 7px 8px 0px rgba(34, 60, 80, 0.2);
+}
+.circle__prev {
+  left: calc(40% - 20px);
+}
+.circle__next {
+  right: calc(40% - 20px);
+}
+.transition {
+  transition: 0.7s;
+}
+@media (max-width: 599px) {
+  #prev,
+  #next {
+    background: none;
+  }
+  .circle {
+    top: calc(50% - 50px);
+  }
+  .circle__prev {
+    left: 5px;
+  }
+  .circle__next {
+    right: 5px;
+  }
+  .slide {
+    min-width: 100vw;
+  }
+}
